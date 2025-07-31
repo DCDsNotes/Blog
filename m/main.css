@@ -109,12 +109,13 @@ pre::-webkit-scrollbar-track:hover {
 
   --related-post-border-color: #999;
 
-  --toc-padding: 1rem 1.5rem;
+  --toc-padding: 1.2rem 1.5rem;
 
   --comments-margin-top: 2rem;
 
   --sidebar-width: 100%;
   --sidebar-padding: 2rem;
+  --widget-header-padding: .8rem 1.2rem;
 
   --footer-padding: 2rem 0;
 }
@@ -413,8 +414,8 @@ ul {
 }
 
 .widget-header {
-  margin-bottom: .5rem;
-  padding: .5rem 1rem;
+  margin-bottom: 1rem;
+  padding: var(--widget-header-padding);
   border-radius: .5rem;
   font-size: 1.6rem;
   background-color: var(--widget-header-background-color);
@@ -466,6 +467,7 @@ ul {
     --post-content-padding: 2rem 4rem;
     --post-title-font-size: 2.4rem;
     --menu-gap: 2rem;
+    --widget-header-padding: .5rem 1rem;
   }
   /* Global */
   .container {
@@ -583,7 +585,7 @@ ul {
   }
   .widget ul li a {
     display: block;
-    padding: .5rem 1rem;
+    padding: var(--widget-header-padding);
     border-radius: .5rem;
   }
   .widget ul li a:hover {
