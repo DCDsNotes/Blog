@@ -40,10 +40,16 @@
                 <span class="words">共计3000字</span>
               </p>
             </header>
-            <section class="toc">
-              <div class="toc-header">
+            <details class="toc" id="toc-details">
+              <summary class="toc-header">
                 <span class="toc-title">目录</span>
-              </div>
+                <span class="toc-icon">
+                  <svg class="toc-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </summary>
+
               <div class="toc-content">
                 <ul>
                   <li><a href="#">如Ozempic引发热议</a></li>
@@ -57,7 +63,7 @@
                   <li><a href="#">如Ozempic引发热议</a></li>
                 </ul>
               </div>
-            </section>
+            </details>
             <div class="post-content">
               <p>在探索电力历史时，一个问题让人好奇：为什么美国等少数国家坚持使用110至120伏的家用电压，而全球三分之二的国家选择了220至230伏？答案藏在19世纪末的发明热潮和美国独特城市发展的故事中。</p>
               <p>1878年9月8日，31岁的Thomas Edison被朋友带去参观<a href="#">William Wallace</a>的发明。这位发明家与Moses Farmer合作打造了一台能同时点亮八盏耀眼弧光灯的直流发电机。Edison被深深吸引，但觉得弧光灯太刺眼。他回到自己的“发明工厂”，豪言要用一台机器点亮“千盏，乃至万盏灯”，甚至放言用十几台Wallace的发电机就能照亮纽约下城。然而，他很快发现Wallace-Farmer的发电机效率低下。于是，Edison买下所有能找到的发电机，融合它们的优点，打造出一台更高效的发电机，绰号“长腿Mary-Ann”，因其电磁铁的长“腿”而得名。这台发电机沿用了110伏的设计。</p>
@@ -71,17 +77,17 @@
               <div class="related-post">
                 <h3 class="related-title">相关文章</h3>
                 <ul>
-                  <li><a href="#">被低估的发明家Mikhail Dolivo-Dobrowsky</a></li>
+                  <li><a href="#">全球首座摩天大楼——十层高的家庭保险大楼</a></li>
                   <li><a href="#">至于为何出现50赫兹和60赫兹的差异？</a></li>
                   <li><a href="#">三相交流系统彻底改变了电力传输方式</a></li>
                   <li><a href="#">城市快速发展与技术局限的产物</a></li>
                   <li><a href="#">高功率设备如干衣机推动了双火线供电</a></li>
                 </ul>
               </div>
+              <div class="post-tags"></div>
             </div>
           </article>
           <div id="comments" class="comments">
-            <p>尽管有了高效发电机，Edison的电气化之路并不平坦。直到四年后，他才成功量产白炽灯泡，并从中央电站为商业供电。初期，Edison注意到热门线路的客户使用更多灯泡，电阻增加，导致灯光比冷门线路黯淡。他巧妙地设计了三线系统：两台直流发电机串联，中间加一根“中性线”。当系统平衡时，中性线几乎无电流流动，灯泡保持一致亮度。这不仅节省了超过60%的铜线，还能通过连接两条“火线”提供220伏，驱动电机等大功率设备。</p>
           </div>
         </div>
       </main>
@@ -92,11 +98,12 @@
           </div>
           <div class="widget-content">
             <ul>
-              <li><a href="#">被低估的发明家Mikhail Dolivo-Dobrowsky</a></li>
+              <li><a href="#">全球首座摩天大楼——十层高的家庭保险大楼</a></li>
               <li><a href="#">至于为何出现50赫兹和60赫兹的差异？</a></li>
               <li><a href="#">三相交流系统彻底改变了电力传输方式</a></li>
               <li><a href="#">城市快速发展与技术局限的产物</a></li>
               <li><a href="#">高功率设备如干衣机推动了双火线供电</a></li>
+              <li><a href="#">三相交流系统彻底改变了电力传输方式</a></li>
             </ul>
           </div>
         </div>
@@ -113,6 +120,27 @@
     </div>
   </footer>
 </div>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const tocDetails = document.getElementById('toc-details');
+    if (!tocDetails) {
+      return;
+    }
+    const breakpoint = 1024;
+    function updateTocState() {
+      if (window.innerWidth >= breakpoint) {
+        tocDetails.setAttribute('open', '');
+        tocDetails.classList.add('expand');
+      } else {
+        tocDetails.removeAttribute('open');
+        tocDetails.classList.remove('expand');
+      }
+    }
+    updateTocState();
+    window.addEventListener('resize', updateTocState);
+
+  });
+</script>
 </body>
 
 </html>
