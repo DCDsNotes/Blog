@@ -109,13 +109,13 @@ pre::-webkit-scrollbar-track:hover {
 
   --related-post-border-color: #999;
 
-  --toc-padding: 1.2rem 1.5rem;
+  --toc-padding: 1.2rem;
 
   --comments-margin-top: 2rem;
 
   --sidebar-width: 100%;
   --sidebar-padding: 2rem;
-  --widget-header-padding: .8rem 1.2rem;
+  --widget-header-padding: .6rem 1.2rem;
 
   --footer-padding: 2rem 0;
 }
