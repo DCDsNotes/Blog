@@ -111,11 +111,13 @@ pre::-webkit-scrollbar-track:hover {
 
   --toc-padding: 1.2rem;
 
-  --comments-margin-top: 2rem;
+  --section-margin-top: 2rem;
 
   --sidebar-width: 100%;
   --sidebar-padding: 2rem;
   --widget-header-padding: .6rem 1.2rem;
+
+  --list-gap: 1rem;
 
   --footer-padding: 2rem 0;
 }
@@ -219,6 +221,11 @@ ul {
 .site-name {
   font-size: var(--title-font-size);
   font-weight: 500;
+  line-height: 1;
+}
+
+span.site-name {
+  display: block;
 }
 
 .site-name a {
@@ -354,7 +361,7 @@ ul {
 
 .toc-content {
   max-height: 0;
-  margin-top: 1rem;
+  margin-top: var(--list-gap);
   font-size: 1.4rem;
   overflow: hidden;
   transition: max-height 0.3s ease-out;
@@ -382,7 +389,7 @@ ul {
 
 .toc-content ul {
   display: flex;
-  gap: 1rem;
+  gap: var(--list-gap);
   flex-direction: column;
 }
 
@@ -397,8 +404,14 @@ ul {
   font-weight: 500;
 }
 
-.related-post ul li {
-  margin-top: 1rem;
+.related-content {
+  margin-top: var(--list-gap);
+}
+
+.related-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--list-gap);
 }
 
 /*--------------------------------------------------------------
@@ -413,23 +426,36 @@ ul {
   width: var(--sidebar-width);
 }
 
+.widget:not(:first-child) {
+  margin-top: var(--section-margin-top);
+}
+
 .widget-header {
-  margin-bottom: 1rem;
   padding: var(--widget-header-padding);
   border-radius: .5rem;
   font-size: 1.6rem;
   background-color: var(--widget-header-background-color);
 }
 
-.widget ul li {
-  padding: .5rem;
+.widget-content {
+  margin-top: var(--list-gap);
+}
+
+.widget-content ul {
+  display: flex;
+  flex-direction: column;
+  gap: var(--list-gap);
+}
+
+.widget ul li a {
+  padding: 0 .5rem;
 }
 
 /*--------------------------------------------------------------
 >>> Comments:
 --------------------------------------------------------------*/
 .comments {
-  margin-top: var(--comments-margin-top);
+  margin-top: var(--section-margin-top);
 }
 
 /*--------------------------------------------------------------
@@ -505,8 +531,9 @@ ul {
     top: var(--header-height);
     height: fit-content;
   }
-  .widget ul {
+  .widget-content ul {
     font-size: 1.4rem;
+    gap: 0;
   }
   /* Footer */
   .app-footer .container {
