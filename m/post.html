@@ -5,25 +5,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>文章页 - 模板</title>
-  <link rel="stylesheet" href="/m/main.css">
+  <link rel="stylesheet" href="main.css">
+  <script>
+    (function() {
+      try {
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {
+        console.error('Failed to set initial theme from <head> script:', e);
+      }
+    })();
+  </script>
 </head>
 
-<body class="singular">
+<body class="isSingular">
 <div id="app">
   <header class="app-header">
     <div class="container">
-      <div class="branding">
-        <span class="site-name"><a href="/m/index.html">归零博客</a></span>
+      <div class="site-title">
+        <span class="site-name"><a href="index.html">归零博客</a></span>
       </div>
       <nav class="menu">
         <ul>
-          <li><a href="#">导航</a></li>
-          <li><a href="#">导航</a></li>
-          <li><a href="#">导航</a></li>
-          <li><a href="#">导航</a></li>
-          <li><a href="#">导航</a></li>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="archives.html">存档</a></li>
+          <li><a href="post.html">文章</a></li>
+          <li><a href="tag.html">标签</a></li>
         </ul>
       </nav>
+      <div class="buttons">
+        <button class="menu-toggle" aria-label="切换导航菜单">
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+        </button>
+        <a class="contact" href="#">
+          <svg class="icon-telegram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.14753 11.8099C7.3949 9.52374 10.894 8.01654 12.6447 7.28833C17.6435 5.20916 18.6822 4.84799 19.3592 4.83606C19.5081 4.83344 19.8411 4.87034 20.0567 5.04534C20.2388 5.1931 20.2889 5.39271 20.3129 5.5328C20.3369 5.6729 20.3667 5.99204 20.343 6.2414C20.0721 9.08763 18.9 15.9947 18.3037 19.1825C18.0514 20.5314 17.5546 20.9836 17.0736 21.0279C16.0283 21.1241 15.2345 20.3371 14.2221 19.6735C12.6379 18.635 11.7429 17.9885 10.2051 16.9751C8.42795 15.804 9.58001 15.1603 10.5928 14.1084C10.8579 13.8331 15.4635 9.64397 15.5526 9.26395C15.5637 9.21642 15.5741 9.03926 15.4688 8.94571C15.3636 8.85216 15.2083 8.88415 15.0962 8.9096C14.9373 8.94566 12.4064 10.6184 7.50365 13.928C6.78528 14.4212 6.13461 14.6616 5.55163 14.649C4.90893 14.6351 3.67265 14.2856 2.7536 13.9869C1.62635 13.6204 0.730432 13.4267 0.808447 12.8044C0.849081 12.4803 1.29544 12.1488 2.14753 11.8099Z"/>
+          </svg>
+          <span class="contact-text">联系我</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+          <svg id="icon-light" class="icon-theme icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+          </svg>
+          <svg id="icon-dark" class="icon-theme icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.3807 2.01886C9.91573 3.38768 9 5.3369 9 7.49999C9 11.6421 12.3579 15 16.5 15C18.6631 15 20.6123 14.0843 21.9811 12.6193C21.6613 17.8537 17.3149 22 12 22C6.47715 22 2 17.5228 2 12C2 6.68514 6.14629 2.33869 11.3807 2.01886Z"/>
+          </svg>
+          <svg id="icon-system" class="icon-theme icon-system" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.9967C6.47715 21.9967 2 17.5196 2 11.9967C2 6.47386 6.47715 1.9967 12 1.9967C17.5228 1.9967 22 6.47386 22 11.9967C22 17.5196 17.5228 21.9967 12 21.9967ZM12 19.9967V3.9967C7.58172 3.9967 4 7.57843 4 11.9967C4 16.415 7.58172 19.9967 12 19.9967Z"/>
+          </svg>
+        </button>
     </div>
   </header>
 
@@ -40,12 +76,12 @@
                 <span class="words">共计3000字</span>
               </p>
             </header>
-            <details class="toc" id="toc-details">
+            <details class="post-toc" id="toc-details">
               <summary class="toc-header">
                 <span class="toc-title">目录</span>
                 <span class="toc-icon">
-                  <svg class="toc-menu-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 6H20M4 12H20M4 18H20" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <svg class="icon-toc" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 4H21V6H3V4ZM3 11H15V13H3V11ZM3 18H21V20H3V18Z"/>
                   </svg>
                 </span>
               </summary>
@@ -73,24 +109,39 @@
               <p>空间有限，建筑师William Jenny提出用金属骨架支撑建筑，墙体无需承重。这一创新催生了1884年的全球首座摩天大楼——十层高的家庭保险大楼。到1893年，芝加哥拥有12座16至20层的摩天大楼，远超纽约的4座。同年，芝加哥举办哥伦布世界博览会，吸引2700万游客，展示George Westinghouse的交流电照明，夜间开放的壮观景象震撼人心。电灯成为商业和城市骄傲的象征，美国的摩天大楼热潮推动了110伏电灯的广泛应用。</p>
               <p>随着时间推移，电力公司为节省导线成本，略微调整电压，美国从110伏升至120伏，欧洲从220伏升至230或240伏。1891年，德国展示三相交流配电，每户使用一根火线、一根中性线和一根地线。高功率设备如干衣机推动了双火线供电，提供更高电压。这种复杂的演变造就了各国不同的电力标准。</p>
               <p>至于为何出现50赫兹和60赫兹的差异？这得归功于一位被低估的发明家Mikhail Dolivo-Dobrowsky，他的三相交流系统彻底改变了电力传输方式。美国的110伏选择，既是历史偶然，也是城市快速发展与技术局限的产物，至今影响着我们的生活。</p>
-              <section class="related-post">
-                <div class="related-header">
-                  <h3 class="related-title">相关文章</h3>
-                </div>
-                <div class="related-content">
-                  <ul>
-                    <li><a href="#">全球首座摩天大楼——十层高的家庭保险大楼</a></li>
-                    <li><a href="#">至于为何出现50赫兹和60赫兹的差异？</a></li>
-                    <li><a href="#">三相交流系统彻底改变了电力传输方式</a></li>
-                    <li><a href="#">城市快速发展与技术局限的产物</a></li>
-                    <li><a href="#">高功率设备如干衣机推动了双火线供电</a></li>
-                  </ul>
-                </div>
-              </section>
-              <div class="post-tags"></div>
             </div>
+            <div class="post-tags">
+              <div class="tags-list">
+                <a class="tag-link" href="#">
+                  <span class="tag-icon">#</span>
+                  <span class="tag-name">标签</span>
+                </a>
+                <a class="tag-link" href="#">
+                  <span class="tag-icon">#</span>
+                  <span class="tag-name">标签</span>
+                </a>
+                <a class="tag-link" href="#">
+                  <span class="tag-icon">#</span>
+                  <span class="tag-name">标签</span>
+                </a>
+              </div>
+            </div>
+            <section class="related-post">
+              <div class="related-header">
+                <h3 class="related-title">相关文章</h3>
+              </div>
+              <div class="related-content">
+                <ul>
+                  <li><a href="#">全球首座摩天大楼——十层高的家庭保险大楼</a></li>
+                  <li><a href="#">至于为何出现50赫兹和60赫兹的差异？</a></li>
+                  <li><a href="#">三相交流系统彻底改变了电力传输方式</a></li>
+                  <li><a href="#">城市快速发展与技术局限的产物</a></li>
+                  <li><a href="#">高功率设备如干衣机推动了双火线供电</a></li>
+                </ul>
+              </div>
+            </section>
           </article>
-          <div id="comments" class="comments">
+          <div id="comments" class="comments">评论
           </div>
         </div>
       </main>
@@ -110,8 +161,13 @@
             </ul>
           </div>
         </section>
-        <div class="widget qr">
-          <div class="widget-content"></div>
+        <div class="widget qrcode">
+          <div class="widget-content">
+            <figure>
+              <img class="qrcode-img" src="generate.jpg">
+              <figcaption class="qrcode-desc">扫描二维码使用手机阅读本文</figcaption>
+            </figure>
+          </div>
         </div>
       </aside>
     </div>
@@ -125,27 +181,176 @@
       </div>
     </div>
   </footer>
+  <button id="back-to-top" class="backtotop" aria-label="返回顶部">
+    <svg class="icon-backtotop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 13.9142L16.7929 18.7071L18.2071 17.2929L12 11.0858L5.79289 17.2929L7.20711 18.7071L12 13.9142ZM6 7L18 7V9L6 9L6 7Z"/>
+    </svg>
+</button>
 </div>
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-    const tocDetails = document.getElementById('toc-details');
-    if (!tocDetails) {
-      return;
+<script>
+  (function() {
+    function safeDomUpdate(callback) {
+      requestAnimationFrame(callback);
     }
-    const breakpoint = 1024;
-    function updateTocState() {
-      if (window.innerWidth >= breakpoint) {
-        tocDetails.setAttribute('open', '');
-        tocDetails.classList.add('expand');
-      } else {
-        tocDetails.removeAttribute('open');
-        tocDetails.classList.remove('expand');
-      }
-    }
-    updateTocState();
-    window.addEventListener('resize', updateTocState);
 
-  });
+    function initThemeToggle() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+      const allIcons = document.querySelectorAll('.icon-theme');
+      const icons = {
+          light: document.getElementById('icon-light'),
+          dark: document.getElementById('icon-dark'),
+          system: document.getElementById('icon-system'),
+      };
+
+      if (!themeToggle || !icons.light || !icons.dark || !icons.system) {
+        console.warn('Theme toggle elements not found. Skipping initialization.');
+        return;
+      }
+
+      const THEMES = ['system', 'light', 'dark'];
+      let currentThemeIndex = 0;
+
+      const themeConfig = {
+        'light': {
+          iconId: 'light',
+          label: '切换到深色模式',
+          apply: () => { html.classList.remove('dark'); localStorage.theme = 'light'; }
+        },
+        'dark': {
+          iconId: 'dark',
+          label: '切换到浅色模式',
+          apply: () => { html.classList.add('dark'); localStorage.theme = 'dark'; }
+        },
+        'system': {
+          iconId: 'system',
+          label: '切换到系统模式',
+          apply: () => {
+            localStorage.removeItem('theme');
+            html.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+          }
+        }
+      };
+
+      function updateThemeUI(theme) {
+        const config = themeConfig[theme];
+        if (config) {
+          allIcons.forEach(icon => icon.classList.remove('active'));
+          const activeIcon = icons[config.iconId];
+          if (activeIcon) {
+              activeIcon.classList.add('active');
+          }
+          themeToggle.setAttribute('aria-label', config.label);
+        }
+      }
+
+      function applyTheme(theme) {
+        safeDomUpdate(() => {
+          themeConfig[theme].apply();
+          updateThemeUI(theme);
+          currentThemeIndex = THEMES.indexOf(theme);
+        });
+      }
+
+      const storedTheme = localStorage.theme;
+      if (storedTheme && THEMES.includes(storedTheme)) {
+        applyTheme(storedTheme);
+      } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          html.classList.add('dark');
+        }
+        updateThemeUI('system');
+        currentThemeIndex = THEMES.indexOf('system');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
+        const newTheme = THEMES[currentThemeIndex];
+        applyTheme(newTheme);
+      });
+
+      const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQueryList.addEventListener('change', (event) => {
+        if (!localStorage.theme) {
+          safeDomUpdate(() => {
+            html.classList.toggle('dark', event.matches);
+          });
+        }
+      });
+    }
+
+    function initMobileMenuToggle() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const appHeader = document.querySelector('.app-header');
+
+      if (!menuToggle || !appHeader) {
+        console.warn('Mobile menu toggle elements not found. Skipping initialization.');
+        return;
+      }
+
+      menuToggle.addEventListener('click', () => {
+        appHeader.classList.toggle('menu-active');
+      });
+    }
+
+    function initBackToTop() {
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (!backToTopBtn) return;
+      const pageTopSentinel = document.createElement('div');
+      Object.assign(pageTopSentinel.style, {
+        position: 'absolute', top: '0', height: '1px', width: '1px', pointerEvents: 'none', opacity: '0'
+      });
+
+      document.body.insertBefore(pageTopSentinel, document.body.firstChild);
+
+      const observer = new IntersectionObserver((entries) => {
+        safeDomUpdate(() => {
+          backToTopBtn.classList.toggle('visible', !entries[0].isIntersecting);
+        });
+      }, {
+        threshold: 0,
+        rootMargin: '200px 0px 0px 0px'
+      });
+
+      observer.observe(pageTopSentinel);
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function initTocToggle() {
+      const tocDetails = document.getElementById('toc-details');
+      if (!tocDetails) {
+        return;
+      }
+
+      const breakpoint = 1024;
+      function updateTocState() {
+        if (window.innerWidth >= breakpoint) {
+          tocDetails.setAttribute('open', '');
+          tocDetails.classList.add('expand');
+        } else {
+          tocDetails.removeAttribute('open');
+          tocDetails.classList.remove('expand');
+        }
+      }
+
+      updateTocState();
+      window.addEventListener('resize', updateTocState);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initThemeToggle();
+      initMobileMenuToggle();
+      initTocToggle();
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initBackToTop);
+      } else {
+        setTimeout(initBackToTop, 200);
+      }
+    });
+  })();
 </script>
 </body>
 

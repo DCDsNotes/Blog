@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>存档 - 模板</title>
+  <link rel="stylesheet" href="main.css">
+  <script>
+    (function() {
+      try {
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {
+        console.error('Failed to set initial theme from <head> script:', e);
+      }
+    })();
+  </script>
+</head>
+
+<body class="isArchive isArchives">
+<div id="app">
+  <header class="app-header">
+    <div class="container">
+      <div class="site-title">
+        <span class="site-name"><a href="index.html">归零博客</a></span>
+      </div>
+      <nav class="menu">
+        <ul>
+          <li><a href="index.html">首页</a></li>
+          <li><a href="archives.html">存档</a></li>
+          <li><a href="post.html">文章</a></li>
+          <li><a href="tag.html">标签</a></li>
+        </ul>
+      </nav>
+      <div class="buttons">
+        <button class="menu-toggle" aria-label="切换导航菜单">
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+          <span class="menu-toggle-bar"></span>
+        </button>
+        <a class="contact" href="#">
+          <svg class="icon-telegram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.14753 11.8099C7.3949 9.52374 10.894 8.01654 12.6447 7.28833C17.6435 5.20916 18.6822 4.84799 19.3592 4.83606C19.5081 4.83344 19.8411 4.87034 20.0567 5.04534C20.2388 5.1931 20.2889 5.39271 20.3129 5.5328C20.3369 5.6729 20.3667 5.99204 20.343 6.2414C20.0721 9.08763 18.9 15.9947 18.3037 19.1825C18.0514 20.5314 17.5546 20.9836 17.0736 21.0279C16.0283 21.1241 15.2345 20.3371 14.2221 19.6735C12.6379 18.635 11.7429 17.9885 10.2051 16.9751C8.42795 15.804 9.58001 15.1603 10.5928 14.1084C10.8579 13.8331 15.4635 9.64397 15.5526 9.26395C15.5637 9.21642 15.5741 9.03926 15.4688 8.94571C15.3636 8.85216 15.2083 8.88415 15.0962 8.9096C14.9373 8.94566 12.4064 10.6184 7.50365 13.928C6.78528 14.4212 6.13461 14.6616 5.55163 14.649C4.90893 14.6351 3.67265 14.2856 2.7536 13.9869C1.62635 13.6204 0.730432 13.4267 0.808447 12.8044C0.849081 12.4803 1.29544 12.1488 2.14753 11.8099Z"/>
+          </svg>
+          <span class="contact-text">联系我</span>
+        </a>
+        <button id="theme-toggle" class="theme-toggle" aria-label="切换主题">
+          <svg id="icon-light" class="icon-theme icon-light" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 18C8.68629 18 6 15.3137 6 12C6 8.68629 8.68629 6 12 6C15.3137 6 18 8.68629 18 12C18 15.3137 15.3137 18 12 18ZM11 1H13V4H11V1ZM11 20H13V23H11V20ZM3.51472 4.92893L4.92893 3.51472L7.05025 5.63604L5.63604 7.05025L3.51472 4.92893ZM16.9497 18.364L18.364 16.9497L20.4853 19.0711L19.0711 20.4853L16.9497 18.364ZM19.0711 3.51472L20.4853 4.92893L18.364 7.05025L16.9497 5.63604L19.0711 3.51472ZM5.63604 16.9497L7.05025 18.364L4.92893 20.4853L3.51472 19.0711L5.63604 16.9497ZM23 11V13H20V11H23ZM4 11V13H1V11H4Z"/>
+          </svg>
+          <svg id="icon-dark" class="icon-theme icon-dark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M11.3807 2.01886C9.91573 3.38768 9 5.3369 9 7.49999C9 11.6421 12.3579 15 16.5 15C18.6631 15 20.6123 14.0843 21.9811 12.6193C21.6613 17.8537 17.3149 22 12 22C6.47715 22 2 17.5228 2 12C2 6.68514 6.14629 2.33869 11.3807 2.01886Z"/>
+          </svg>
+          <svg id="icon-system" class="icon-theme icon-system" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.9967C6.47715 21.9967 2 17.5196 2 11.9967C2 6.47386 6.47715 1.9967 12 1.9967C17.5228 1.9967 22 6.47386 22 11.9967C22 17.5196 17.5228 21.9967 12 21.9967ZM12 19.9967V3.9967C7.58172 3.9967 4 7.57843 4 11.9967C4 16.415 7.58172 19.9967 12 19.9967Z"/>
+          </svg>
+        </button>
+    </div>
+  </header>
+
+  <div class="app-main">
+    <div class="container">
+      <main class="main">
+        <div class="content">
+          <div class="page-header">
+            <h1 class="page-title">文章存档</h1>
+          </div>
+          <section class="section archive">
+            <div class="archive-header">
+              <h3 class="archive-title">2026</h3>
+            </div>
+            <div class="posts">
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">环法自行车赛疑云：选手用了电机吗？</h2>
+                  <p class="post-excerpt">微型电机疑云笼罩赛场</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">挪威：过于富有的国家</h2>
+                  <p class="post-excerpt">挪威的“财富诅咒”：石油金库让国家变“懒”</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">如几年前所预测的，现在的飞机颠簸越来越频繁，也越来越严重了</h2>
+                  <p class="post-excerpt">气候变化让天空之旅更惊心动魄</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">睡意从何而来？一切指向线粒体</h2>
+                  <p class="post-excerpt">睡眠和饥饿感本质上都与线粒体能量平衡密切相关</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">即使只在周末运动，也能将心血管死亡风险降低1/3</h2>
+                  <p class="post-excerpt">效果超过平时分散运动</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">Meta被指控盗版数千部成人影片来训练AI</h2>
+                  <p class="post-excerpt">科技巨头在追求技术突破时可能面临的伦理与法律困境</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </section>
+          <section class="section archive">
+            <div class="archive-header">
+              <h3 class="archive-title">2025</h3>
+            </div>
+            <div class="posts">
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">环法自行车赛疑云：选手用了电机吗？</h2>
+                  <p class="post-excerpt">微型电机疑云笼罩赛场</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">挪威：过于富有的国家</h2>
+                  <p class="post-excerpt">挪威的“财富诅咒”：石油金库让国家变“懒”</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">如几年前所预测的，现在的飞机颠簸越来越频繁，也越来越严重了</h2>
+                  <p class="post-excerpt">气候变化让天空之旅更惊心动魄</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">睡意从何而来？一切指向线粒体</h2>
+                  <p class="post-excerpt">睡眠和饥饿感本质上都与线粒体能量平衡密切相关</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">即使只在周末运动，也能将心血管死亡风险降低1/3</h2>
+                  <p class="post-excerpt">效果超过平时分散运动</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">Meta被指控盗版数千部成人影片来训练AI</h2>
+                  <p class="post-excerpt">科技巨头在追求技术突破时可能面临的伦理与法律困境</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </section>
+          <section class="section archive">
+            <div class="archive-header">
+              <h3 class="archive-title">2024</h3>
+            </div>
+            <div class="posts">
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">环法自行车赛疑云：选手用了电机吗？</h2>
+                  <p class="post-excerpt">微型电机疑云笼罩赛场</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">挪威：过于富有的国家</h2>
+                  <p class="post-excerpt">挪威的“财富诅咒”：石油金库让国家变“懒”</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">如几年前所预测的，现在的飞机颠簸越来越频繁，也越来越严重了</h2>
+                  <p class="post-excerpt">气候变化让天空之旅更惊心动魄</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">睡意从何而来？一切指向线粒体</h2>
+                  <p class="post-excerpt">睡眠和饥饿感本质上都与线粒体能量平衡密切相关</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">即使只在周末运动，也能将心血管死亡风险降低1/3</h2>
+                  <p class="post-excerpt">效果超过平时分散运动</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+              <article class="post">
+                <a class="post-link" href="post.html">
+                  <h2 class="post-title">Meta被指控盗版数千部成人影片来训练AI</h2>
+                  <p class="post-excerpt">科技巨头在追求技术突破时可能面临的伦理与法律困境</p>
+                  <div class="post-meta">
+                    <time class="post-date">2025-7-29</time>
+                    <span class="arrow-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256">
+                        <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                </a>
+              </article>
+            </div>
+          </section>
+          <div class="pagination">
+            <a  class="page-numbers prev" href="#" aria-label="Previous">上一页</a>
+            <a  class="page-numbers" href="#" aria-label="Previous">1</a>
+            <a  class="page-numbers" href="#" aria-label="Previous">2</a>
+            <a  class="page-numbers" href="#" aria-label="Previous">3</a>
+            <a class="page-numbers next" href="#" aria-label="Next">下一页</a>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="container">
+      <div class="copyright">
+        <p>&copy; 2025 归零博客</p>
+        <p>好奇是驱使人类进步的动力</p>
+      </div>
+    </div>
+  </footer>
+  <button id="back-to-top" class="backtotop" aria-label="返回顶部">
+    <svg class="icon-backtotop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 13.9142L16.7929 18.7071L18.2071 17.2929L12 11.0858L5.79289 17.2929L7.20711 18.7071L12 13.9142ZM6 7L18 7V9L6 9L6 7Z"/>
+    </svg>
+  </button>
+</div>
+<script>
+  (function() {
+    function safeDomUpdate(callback) {
+      requestAnimationFrame(callback);
+    }
+
+    function initThemeToggle() {
+      const themeToggle = document.getElementById('theme-toggle');
+      const html = document.documentElement;
+      const allIcons = document.querySelectorAll('.icon-theme');
+      const icons = {
+          light: document.getElementById('icon-light'),
+          dark: document.getElementById('icon-dark'),
+          system: document.getElementById('icon-system'),
+      };
+
+      if (!themeToggle || !icons.light || !icons.dark || !icons.system) {
+        console.warn('Theme toggle elements not found. Skipping initialization.');
+        return;
+      }
+
+      const THEMES = ['system', 'light', 'dark'];
+      let currentThemeIndex = 0;
+
+      const themeConfig = {
+        'light': {
+          iconId: 'light',
+          label: '切换到深色模式',
+          apply: () => { html.classList.remove('dark'); localStorage.theme = 'light'; }
+        },
+        'dark': {
+          iconId: 'dark',
+          label: '切换到浅色模式',
+          apply: () => { html.classList.add('dark'); localStorage.theme = 'dark'; }
+        },
+        'system': {
+          iconId: 'system',
+          label: '切换到系统模式',
+          apply: () => {
+            localStorage.removeItem('theme');
+            html.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+          }
+        }
+      };
+
+      function updateThemeUI(theme) {
+        const config = themeConfig[theme];
+        if (config) {
+          allIcons.forEach(icon => icon.classList.remove('active'));
+          const activeIcon = icons[config.iconId];
+          if (activeIcon) {
+              activeIcon.classList.add('active');
+          }
+          themeToggle.setAttribute('aria-label', config.label);
+        }
+      }
+
+      function applyTheme(theme) {
+        safeDomUpdate(() => {
+          themeConfig[theme].apply();
+          updateThemeUI(theme);
+          currentThemeIndex = THEMES.indexOf(theme);
+        });
+      }
+
+      const storedTheme = localStorage.theme;
+      if (storedTheme && THEMES.includes(storedTheme)) {
+        applyTheme(storedTheme);
+      } else {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          html.classList.add('dark');
+        }
+        updateThemeUI('system');
+        currentThemeIndex = THEMES.indexOf('system');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
+        const newTheme = THEMES[currentThemeIndex];
+        applyTheme(newTheme);
+      });
+
+      const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+      mediaQueryList.addEventListener('change', (event) => {
+        if (!localStorage.theme) {
+          safeDomUpdate(() => {
+            html.classList.toggle('dark', event.matches);
+          });
+        }
+      });
+    }
+
+    function initMobileMenuToggle() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const appHeader = document.querySelector('.app-header');
+
+      if (!menuToggle || !appHeader) {
+        console.warn('Mobile menu toggle elements not found. Skipping initialization.');
+        return;
+      }
+
+      menuToggle.addEventListener('click', () => {
+        appHeader.classList.toggle('menu-active');
+      });
+    }
+
+    function initBackToTop() {
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (!backToTopBtn) return;
+      const pageTopSentinel = document.createElement('div');
+      Object.assign(pageTopSentinel.style, {
+        position: 'absolute', top: '0', height: '1px', width: '1px', pointerEvents: 'none', opacity: '0'
+      });
+
+      document.body.insertBefore(pageTopSentinel, document.body.firstChild);
+
+      const observer = new IntersectionObserver((entries) => {
+        safeDomUpdate(() => {
+          backToTopBtn.classList.toggle('visible', !entries[0].isIntersecting);
+        });
+      }, {
+        threshold: 0,
+        rootMargin: '200px 0px 0px 0px'
+      });
+
+      observer.observe(pageTopSentinel);
+      backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    function initTocToggle() {
+      const tocDetails = document.getElementById('toc-details');
+      if (!tocDetails) {
+        return;
+      }
+
+      const breakpoint = 1024;
+      function updateTocState() {
+        if (window.innerWidth >= breakpoint) {
+          tocDetails.setAttribute('open', '');
+          tocDetails.classList.add('expand');
+        } else {
+          tocDetails.removeAttribute('open');
+          tocDetails.classList.remove('expand');
+        }
+      }
+
+      updateTocState();
+      window.addEventListener('resize', updateTocState);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initThemeToggle();
+      initMobileMenuToggle();
+      initTocToggle();
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initBackToTop);
+      } else {
+        setTimeout(initBackToTop, 200);
+      }
+    });
+  })();
+</script>
+</body>
+
+</html>
