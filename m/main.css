@@ -288,8 +288,8 @@ span.site-name {
 
 .contact .icon-telegram {
   fill: currentColor;
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 16px;
+  height: 16px;
 }
 
 .contact-text {
@@ -318,8 +318,8 @@ span.site-name {
 
 .theme-toggle .icon-theme {
   display: none;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 18px;
+  height: 18px;
   transition: color 0.3s;
 }
 
@@ -696,8 +696,8 @@ span.site-name {
 }
 
 .backtotop .icon-backtotop {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 18px;
+  height: 18px;
   fill: currentColor;
 }
 
@@ -735,7 +735,7 @@ span.site-name {
   }
   .menu li a {
     display: block;
-    padding: 1rem;
+    padding: .6rem;
     text-align: center;
     border-radius: var(--little-border-radius);
     background-color: var(--post-hover-bg-color);
