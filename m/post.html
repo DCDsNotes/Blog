@@ -188,169 +188,220 @@
 </button>
 </div>
 <script>
-  (function() {
-    function safeDomUpdate(callback) {
-      requestAnimationFrame(callback);
+(function() {
+  /**
+   * Helper function to safely update the DOM within a requestAnimationFrame callback.
+   * This prevents layout thrashing.
+   */
+  function safeDomUpdate(callback) {
+    requestAnimationFrame(callback);
+  }
+
+  // --- 1. Theme Toggle Function ---
+  function initThemeToggle() {
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    const allIcons = document.querySelectorAll('.icon-theme');
+    const icons = {
+      light: document.getElementById('icon-light'),
+      dark: document.getElementById('icon-dark'),
+      system: document.getElementById('icon-system'),
+    };
+
+    if (!themeToggle || !icons.light || !icons.dark || !icons.system) {
+      console.warn('Theme toggle elements not found. Skipping initialization.');
+      return;
     }
 
-    function initThemeToggle() {
-      const themeToggle = document.getElementById('theme-toggle');
-      const html = document.documentElement;
-      const allIcons = document.querySelectorAll('.icon-theme');
-      const icons = {
-          light: document.getElementById('icon-light'),
-          dark: document.getElementById('icon-dark'),
-          system: document.getElementById('icon-system'),
-      };
+    const THEMES = ['system', 'light', 'dark'];
+    let currentThemeIndex = 0;
 
-      if (!themeToggle || !icons.light || !icons.dark || !icons.system) {
-        console.warn('Theme toggle elements not found. Skipping initialization.');
-        return;
-      }
-
-      const THEMES = ['system', 'light', 'dark'];
-      let currentThemeIndex = 0;
-
-      const themeConfig = {
-        'light': {
-          iconId: 'light',
-          label: '切换到深色模式',
-          apply: () => { html.classList.remove('dark'); localStorage.theme = 'light'; }
-        },
-        'dark': {
-          iconId: 'dark',
-          label: '切换到浅色模式',
-          apply: () => { html.classList.add('dark'); localStorage.theme = 'dark'; }
-        },
-        'system': {
-          iconId: 'system',
-          label: '切换到系统模式',
-          apply: () => {
-            localStorage.removeItem('theme');
-            html.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
-          }
+    const themeConfig = {
+      'light': {
+        iconId: 'light',
+        label: '切换到深色模式',
+        apply: () => {
+          html.classList.remove('dark');
+          localStorage.setItem('theme', 'light');
         }
-      };
-
-      function updateThemeUI(theme) {
-        const config = themeConfig[theme];
-        if (config) {
-          allIcons.forEach(icon => icon.classList.remove('active'));
-          const activeIcon = icons[config.iconId];
-          if (activeIcon) {
-              activeIcon.classList.add('active');
-          }
-          themeToggle.setAttribute('aria-label', config.label);
-        }
-      }
-
-      function applyTheme(theme) {
-        safeDomUpdate(() => {
-          themeConfig[theme].apply();
-          updateThemeUI(theme);
-          currentThemeIndex = THEMES.indexOf(theme);
-        });
-      }
-
-      const storedTheme = localStorage.theme;
-      if (storedTheme && THEMES.includes(storedTheme)) {
-        applyTheme(storedTheme);
-      } else {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      },
+      'dark': {
+        iconId: 'dark',
+        label: '切换到浅色模式',
+        apply: () => {
           html.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
         }
-        updateThemeUI('system');
-        currentThemeIndex = THEMES.indexOf('system');
+      },
+      'system': {
+        iconId: 'system',
+        label: '切换到系统模式',
+        apply: () => {
+          localStorage.removeItem('theme');
+          html.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
+        }
       }
+    };
 
-      themeToggle.addEventListener('click', () => {
-        currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
-        const newTheme = THEMES[currentThemeIndex];
-        applyTheme(newTheme);
-      });
-
-      const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
-      mediaQueryList.addEventListener('change', (event) => {
-        if (!localStorage.theme) {
-          safeDomUpdate(() => {
-            html.classList.toggle('dark', event.matches);
-          });
+    function updateThemeUI(theme) {
+      const config = themeConfig[theme];
+      if (config) {
+        allIcons.forEach(icon => icon.classList.remove('active'));
+        const activeIcon = icons[config.iconId];
+        if (activeIcon) {
+          activeIcon.classList.add('active');
         }
+        themeToggle.setAttribute('aria-label', config.label);
+      }
+    }
+
+    function applyTheme(theme) {
+      safeDomUpdate(() => {
+        themeConfig[theme].apply();
+        updateThemeUI(theme);
+        currentThemeIndex = THEMES.indexOf(theme);
       });
     }
 
-    function initMobileMenuToggle() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const appHeader = document.querySelector('.app-header');
-
-      if (!menuToggle || !appHeader) {
-        console.warn('Mobile menu toggle elements not found. Skipping initialization.');
-        return;
-      }
-
-      menuToggle.addEventListener('click', () => {
-        appHeader.classList.toggle('menu-active');
-      });
+    // Initialize UI based on the theme set by the script in <head>
+    const storedTheme = localStorage.getItem('theme');
+    let initialTheme = 'system';
+    if (storedTheme && THEMES.includes(storedTheme)) {
+      initialTheme = storedTheme;
     }
+    updateThemeUI(initialTheme);
+    currentThemeIndex = THEMES.indexOf(initialTheme);
 
-    function initBackToTop() {
-      const backToTopBtn = document.getElementById('back-to-top');
-      if (!backToTopBtn) return;
-      const pageTopSentinel = document.createElement('div');
-      Object.assign(pageTopSentinel.style, {
-        position: 'absolute', top: '0', height: '1px', width: '1px', pointerEvents: 'none', opacity: '0'
-      });
+    // Event listener for clicks
+    themeToggle.addEventListener('click', () => {
+      currentThemeIndex = (currentThemeIndex + 1) % THEMES.length;
+      const newTheme = THEMES[currentThemeIndex];
+      applyTheme(newTheme);
+    });
 
-      document.body.insertBefore(pageTopSentinel, document.body.firstChild);
-
-      const observer = new IntersectionObserver((entries) => {
+    // Event listener for system preference changes
+    const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQueryList.addEventListener('change', (event) => {
+      if (!localStorage.getItem('theme')) { // Only act if in 'system' mode
         safeDomUpdate(() => {
-          backToTopBtn.classList.toggle('visible', !entries[0].isIntersecting);
+          html.classList.toggle('dark', event.matches);
         });
-      }, {
-        threshold: 0,
-        rootMargin: '200px 0px 0px 0px'
-      });
-
-      observer.observe(pageTopSentinel);
-      backToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-
-    function initTocToggle() {
-      const tocDetails = document.getElementById('toc-details');
-      if (!tocDetails) {
-        return;
-      }
-
-      const breakpoint = 1024;
-      function updateTocState() {
-        if (window.innerWidth >= breakpoint) {
-          tocDetails.setAttribute('open', '');
-          tocDetails.classList.add('expand');
-        } else {
-          tocDetails.removeAttribute('open');
-          tocDetails.classList.remove('expand');
-        }
-      }
-
-      updateTocState();
-      window.addEventListener('resize', updateTocState);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initThemeToggle();
-      initMobileMenuToggle();
-      initTocToggle();
-
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(initBackToTop);
-      } else {
-        setTimeout(initBackToTop, 200);
       }
     });
-  })();
+  }
+
+  // --- 2. Mobile Menu Toggle Function ---
+  function initMobileMenuToggle() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const appHeader = document.querySelector('.app-header');
+    const menuList = document.querySelector('.menu ul'); // Target the <ul> for height animation
+
+    if (!menuToggle || !appHeader || !menuList) {
+      console.warn('Mobile menu elements for dynamic height animation not found. Skipping initialization.');
+      return;
+    }
+
+    menuToggle.addEventListener('click', () => {
+      const isMenuOpen = appHeader.classList.contains('menu-active');
+
+      if (isMenuOpen) {
+        // Closing: Set height to 0
+        menuList.style.height = '0px';
+      } else {
+        // Opening: Calculate and set height
+        const menuHeight = menuList.scrollHeight;
+        menuList.style.height = menuHeight + 'px';
+      }
+
+      // Toggle the state class on the header
+      appHeader.classList.toggle('menu-active');
+    });
+
+    // Add a resize listener to reset styles on desktop view
+    window.addEventListener('resize', () => {
+      // Use the same breakpoint as your CSS media query
+      if (window.innerWidth > 768) {
+        menuList.style.height = ''; // Remove inline style to let CSS control it
+        appHeader.classList.remove('menu-active');
+      }
+    });
+  }
+
+  // --- 3. Back to Top Button Function ---
+  function initBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (!backToTopBtn) return;
+
+    const pageTopSentinel = document.createElement('div');
+    Object.assign(pageTopSentinel.style, {
+      position: 'absolute',
+      top: '0',
+      height: '1px',
+      width: '1px',
+      pointerEvents: 'none',
+      opacity: '0'
+    });
+    document.body.insertBefore(pageTopSentinel, document.body.firstChild);
+
+    const observer = new IntersectionObserver((entries) => {
+      safeDomUpdate(() => {
+        backToTopBtn.classList.toggle('visible', !entries[0].isIntersecting);
+      });
+    }, {
+      threshold: 0,
+      rootMargin: '200px 0px 0px 0px'
+    });
+
+    observer.observe(pageTopSentinel);
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+
+  // --- 4. Table of Contents (TOC) Toggle Function ---
+  function initTocToggle() {
+    const tocDetails = document.getElementById('toc-details');
+    if (!tocDetails) {
+      return;
+    }
+
+    const breakpoint = 1024; // The screen width to switch behavior
+
+    function updateTocState() {
+      if (window.innerWidth >= breakpoint) {
+        // On desktop, force it to be open
+        tocDetails.setAttribute('open', '');
+        tocDetails.classList.add('expand');
+      } else {
+        // On mobile, let the user control it (remove 'open' attribute)
+        tocDetails.removeAttribute('open');
+        tocDetails.classList.remove('expand');
+      }
+    }
+
+    updateTocState(); // Run on initial load
+    window.addEventListener('resize', updateTocState); // Run on window resize
+  }
+
+  // --- Initialize all functions after the DOM is loaded ---
+  document.addEventListener('DOMContentLoaded', () => {
+    initThemeToggle();
+    initMobileMenuToggle();
+    initTocToggle();
+
+    // Defer non-critical scripts for better performance
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(initBackToTop);
+    } else {
+      setTimeout(initBackToTop, 200);
+    }
+  });
+
+})();
 </script>
 </body>
 
