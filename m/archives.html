@@ -5,21 +5,26 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>存档 - 模板</title>
-  <link rel="stylesheet" href="main.css">
   <script>
+    // IIFE (Immediately Invoked Function Expression) to prevent global scope pollution
     (function() {
+      // This script runs before the page is rendered to prevent theme flashing
       try {
-        const storedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-        if (storedTheme === 'dark' || (!storedTheme && prefersDark)) {
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
           document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
         }
       } catch (e) {
-        console.error('Failed to set initial theme from <head> script:', e);
+        // Fails gracefully if localStorage is not available
+        console.error('Failed to apply initial theme from localStorage.', e);
       }
     })();
   </script>
+  <link rel="stylesheet" href="main.css">
 </head>
 
 <body class="isArchive isArchives">
