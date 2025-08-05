@@ -97,6 +97,7 @@ pre::-webkit-scrollbar-track:hover {
   --little-border-radius: .5rem;
   --backtotop-bottom: 2rem;
   --backtotop-right: 2rem;
+  --theme-toggle-icon-size: 3.2rem;
 
   --post-excerpt-color: #666;
   --post-meta-color: #999;
@@ -290,8 +291,8 @@ span.site-name {
 
 .contact .icon-telegram {
   fill: currentColor;
-  width: 16px;
-  height: 16px;
+  width: 1.6rem;
+  height: 1.6rem;
 }
 
 .contact-text {
@@ -304,9 +305,10 @@ span.site-name {
   justify-content: center;
   align-items: center;
   border: none;
+  padding: 0;
   cursor: pointer;
-  width: 3.2rem;
-  height: 3.2rem;
+  width: var(--theme-toggle-icon-size);
+  height: var(--theme-toggle-icon-size);
   color: var(--text-color);
   border-radius: var(--little-border-radius);
   background-color: transparent;
@@ -315,8 +317,8 @@ span.site-name {
 
 .theme-toggle .icon-theme {
   display: none;
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 1.6rem;
+  height: 1.6rem;
   transition: color 0.3s;
   color: var(--text-color);
 }
@@ -706,8 +708,8 @@ html.dark-mode .icon-dark {
 }
 
 .backtotop .icon-backtotop {
-  width: 18px;
-  height: 18px;
+  width: 1.8rem;
+  height: 1.8rem;
   fill: currentColor;
 }
 
@@ -715,6 +717,9 @@ html.dark-mode .icon-dark {
 >>> Media:
 --------------------------------------------------------------*/
 @media screen and (max-width: 767px) {
+  :root {
+    --theme-toggle-icon-size: 2.4rem;
+  }
   /* Global */
   .app-main .container {
     flex-direction: column;
