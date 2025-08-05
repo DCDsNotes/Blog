@@ -121,6 +121,8 @@ html.light-mode {
   --arrow-icon-bg-color: #e0e0e0;
   --tag-icon-bg-color: #e5e5e5;
   --tag-name-bg-color: #d8d8d8;
+  --backtotop-bg-color: #f2f1f0;
+  --backtotop-hover-bg-color: #e8e8e8;
 }
 
 html.dark-mode {
@@ -138,6 +140,8 @@ html.dark-mode {
   --arrow-icon-bg-color: #252525;
   --tag-icon-bg-color: #252525;
   --tag-name-bg-color: #2a2a2a;
+  --backtotop-bg-color: #202020;
+  --backtotop-hover-bg-color: #202020;
 }
 /*--------------------------------------------------------------
 >>> Global:
@@ -683,7 +687,7 @@ html.dark-mode .icon-dark {
   right: var(--backtotop-right);
   width: 3.6rem;
   height: 3.6rem;
-  background-color: var(--post-bg-color);
+  background-color: var(--backtotop-bg-color);
   color: var(--text-color);
   border: none;
   border-radius: 50%;
@@ -700,7 +704,7 @@ html.dark-mode .icon-dark {
 }
 
 .backtotop:hover {
-  background-color: var(--post-hover-bg-color);
+  background-color: var(--backtotop-hover-bg-color);
 }
 
 .backtotop.visible {
