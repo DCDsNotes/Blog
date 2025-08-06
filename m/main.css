@@ -23,7 +23,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-img, picture, video, canvas {
+img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
