@@ -437,7 +437,6 @@ html.dark-mode .icon-dark {
 }
 
 .arrow-icon {
-  display: block;
   padding: .6rem;
   border-radius: 50%;
   color: var(--text-color);
@@ -933,7 +932,6 @@ html.dark-mode .icon-dark {
     display: none;
   }
   .post-toc.expand .icon-toc {
-    display: block;
     width: 1.6rem;
     height: 1.6rem;
   }
@@ -952,7 +950,6 @@ html.dark-mode .icon-dark {
     background-color: var(--widget-header-bg-color);
   }
   .qrcode {
-    display: block;
     margin-top: var(--widget-margin-top);
   }
   /* Comments */
