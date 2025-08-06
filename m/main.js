@@ -70,27 +70,21 @@
     const backToTopBtn = document.getElementById('back-to-top');
     if (!backToTopBtn) return;
 
-    const pageTopSentinel = document.createElement('div');
-    Object.assign(pageTopSentinel.style, {
-      position: 'absolute',
-      top: '0',
-      height: '1px',
-      width: '1px',
-      pointerEvents: 'none',
-      opacity: '0'
-    });
-    document.body.insertBefore(pageTopSentinel, document.body.firstChild);
+    const scrollThreshold = 200;
 
-    const observer = new IntersectionObserver((entries) => {
-      safeDomUpdate(() => {
-        backToTopBtn.classList.toggle('visible', !entries[0].isIntersecting);
-      });
-    }, {
-      threshold: 0,
-      rootMargin: '200px 0px 0px 0px'
-    });
+    let isVisible = false;
 
-    observer.observe(pageTopSentinel);
+    function onScroll() {
+      const shouldBeVisible = window.scrollY > scrollThreshold;
+      if (shouldBeVisible !== isVisible) {
+        isVisible = shouldBeVisible;
+        safeDomUpdate(() => {
+          backToTopBtn.classList.toggle('visible', isVisible);
+        });
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     backToTopBtn.addEventListener('click', () => {
       window.scrollTo({

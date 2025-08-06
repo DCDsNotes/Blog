@@ -23,7 +23,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-img, picture, video, canvas, svg {
+img, picture, video, canvas {
   display: block;
   max-width: 100%;
 }
@@ -391,10 +391,6 @@ html.dark-mode .icon-dark {
 .page-title {
   font-size: 2.4rem;
   text-align: center;
-}
-
-.archive {
-  margin-top: var(--archive-card-gap);;
 }
 
 .archive-header {
@@ -801,11 +797,6 @@ html.dark-mode .icon-dark {
   .pagination .next {
     display: block;
   }
-  /* Footer */
-  .backtotop .icon-backtotop {
-    width: 1.6rem;
-    height: 1.6rem;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -1006,4 +997,3 @@ html.dark-mode .icon-dark {
     max-width: 100rem;
   }
 }
-
